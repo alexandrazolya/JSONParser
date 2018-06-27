@@ -1,0 +1,22 @@
+{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "blue",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "hex": "#000",
+        "hex": "#00F"
+      }
+    }
+  ]
+}

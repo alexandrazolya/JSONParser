@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Ignore build folder 
+build/*
+NOTES/*
+
+# visual studio files
+.vs/*
+
+# don't put catch in dependecies for now 
+dependecies/catch/*
