@@ -40,3 +40,4 @@ NOTES/*
 
 # don't put catch in dependecies for now 
 dependecies/catch/*
+dependecies/*
