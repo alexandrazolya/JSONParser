@@ -1,0 +1,1171 @@
+
+======================================TEST 1 [size]==========================================
+Mon Jul 02 11:56:13 2018
+
+The subject:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"]}
+
++TEST PASSED!! 5 KeyVal was found.
+ 
+======================================TEST 2 [size]==========================================
+Mon Jul 02 11:57:11 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+
+======================================TEST 2 [size]==========================================
+Mon Jul 02 11:57:45 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+
+======================================TEST 3 [size]==========================================
+Mon Jul 02 11:58:14 2018
+
+The subject:{"color": "yellow"}
+
+-TEST FAILED!! (2 KeyVal->1 child should be found).
+ 
+======================================TEST 3 [size]==========================================
+Mon Jul 02 11:59:10 2018
+
+The subject:{"color": "yellow","cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->1 child was found
+
+
+======================================TEST 1 [size]==========================================
+Mon Jul 02 12:00:34 2018
+
+The subject:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"]}
+
++TEST PASSED!! 5 KeyVal was found.
+ 
+"category": "hue"
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+======================================TEST 2 [size]==========================================
+Mon Jul 02 12:02:12 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+
+"cod": {"hex" : ["57", "5", "7", "17"]}
+"code": {"heex":["565","55","70","517"]}
+[007474D0, 007473E0]
+======================================TEST 2 [size]==========================================
+Mon Jul 02 12:04:38 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+
+"cod": {"hex" : ["57", "5", "7", "17"]}
+"code": {"heex":["565","55","70","517"]}
+[004974D0, 004973E0]
+
+======================================TEST 1 [size]==========================================
+Mon Jul 02 12:26:36 2018
+
+The subject:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"]}
+
++TEST PASSED!! 5 KeyVal was found.
+ "category": "hue"
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 2 [size]==========================================
+Mon Jul 02 12:26:36 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+"cod": {"hex" : ["57", "5", "7", "17"]}
+"code": {"heex":["565","55","70","517"]}
+[006173B0, 0061BA50]
+
+======================================TEST 3 [size]==========================================
+Mon Jul 02 12:26:36 2018
+
+The subject:{"color": "yellow","cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->1 child was found
+[0061BF00]
+
+======================================TEST 4 [size]==========================================
+Mon Jul 02 12:26:36 2018
+
+The subject:{"code":{"color": "yellow","heex":["565","55","70","517"],"category" : "hue"}}
+
++TEST PASSED!! 1 child was found
+[0061E870]
+
+======================================TEST 1 [equality]==========================================
+Mon Jul 02 12:31:14 2018
+
+Subject 1:{"color": "yellow","category" : "hue"}
+Subject 2:{"color": "yellow","category" : "hue"}
+
++TEST FAILED!! KeyVal are different
+"category": "hue"
+"color": "yellow"
+"category": "hue"
+"color": "yellow"
+
+======================================TEST 1 [equality]==========================================
+Mon Jul 02 13:49:58 2018
+
+Subject 1:{"color": "yellow","category" : "hue"}
+Subject 2:{"color": "yellow","category" : "hue"}
+
++TEST PASSED!! KeyVal are the same
+"category": "hue"
+"color": "yellow"
+"category": "hue"
+"color": "yellow"
+
+======================================TEST 2 [equality]==========================================
+Mon Jul 02 13:49:58 2018
+
+Subject 1:{"code":{"one":"#FF0","two":"#0F0"}}
+Subject 2:{"code":{"one":"#FF0","twdo":"#0F0"}}
+
++TEST FAILED!! KeyVal are different
+"code": {"one":"#FF0","two":"#0F0"}
+"code": {"one":"#FF0","twdo":"#0F0"}
+
+======================================TEST 3 [equality]==========================================
+Mon Jul 02 13:49:58 2018
+
+Subject 1:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+Subject 2:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+
++TEST PASSED!! KeyVal are the same
+"code": {"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}
+"code": {"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}
+
+======================================TEST 4 [equality]==========================================
+Mon Jul 02 13:49:58 2018
+
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+Subject 2:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+
++TEST PASSED!! KeyVal are the same
+[004D02C0, 004D02C0]
+[004D8B40, 004D8B40]
+
+======================================TEST 5 [equality]==========================================
+Mon Jul 02 13:49:58 2018
+
+Subject 1:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+Subject 2:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+
++TEST PASSED!! KeyVal are the same
+[004DD4D0]
+[004E21C8]
+
+======================================TEST 1 [parse_json]==========================================
+Mon Jul 02 13:58:32 2018
+
+The subject is:{"code":{"heex":["565","55","70","517"]},{"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+[006E74D0]
+"code": {"heex":["565","55","70","517"]}
+"hex": ["57", "5", "7", "17"]
+
+======================================TEST 2 [parse_json]==========================================
+Mon Jul 02 13:58:32 2018
+
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+
+ The parse:
+[006E7638, 006E7638]
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 13:58:32 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+[006F1F20]
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 1 [merge]==========================================
+Mon Jul 02 14:13:11 2018
+
+Subject 1:{"one" : ["55", "55", "70", "17"],"two" : ["55", "55", "70", "17"]}
+Subject 2:{"one" : ["55", "55", "70", "17"],"two1" : ["55", "55", "70", "17"]}
+======================================TEST 1 [merge]==========================================
+Mon Jul 02 14:19:56 2018
+
+Subject 1:{"one" : ["55", "55", "70", "17"],"two" : ["55", "55", "70", "17"]}
+Subject 2:{"one" : ["55", "55", "70", "17"],"two1" : ["55", "55", "70", "17"]}
+
+EMPTY keyVal
+"one": ["55", "55", "70", "17"]
+"two": ["55", "55", "70", "17"]
+"two1": ["55", "55", "70", "17"]
+
+
+KeyVal has duplicates or different values
+======================================TEST 1 [merge]==========================================
+Mon Jul 02 14:20:04 2018
+
+Subject 1:{"one" : ["55", "55", "70", "17"],"two" : ["55", "55", "70", "17"]}
+Subject 2:{"one" : ["55", "55", "70", "17"],"two1" : ["55", "55", "70", "17"]}
+
+EMPTY keyVal
+"one": ["55", "55", "70", "17"]
+"two": ["55", "55", "70", "17"]
+"two1": ["55", "55", "70", "17"]
+
+
+KeyVal has duplicates or different values
+======================================TEST 1 [merge]==========================================
+Mon Jul 02 14:34:34 2018
+
+Subject 1:{"one" : ["55", "55", "70", "17"],"two" : ["55", "55", "70", "17"]}
+Subject 2:{"one" : ["55", "55", "70", "17"],"two1" : ["55", "55", "70", "17"]}
+"one": ["55", "55", "70", "17"]
+"two": ["55", "55", "70", "17"]
+"two1": ["55", "55", "70", "17"]
+
+
+KeyVal has duplicates or different values
+======================================TEST 2 [merge]==========================================
+Mon Jul 02 14:34:34 2018
+
+Subject 1:{"color": "green"}
+Subject 2:{"color": "yellow"}
+"color": "green"
+"color": "yellow"
+
+
+KeyVal has duplicates or different values
+======================================TEST 3 [merge]==========================================
+Mon Jul 02 14:34:34 2018
+
+Subject 1:{"code":{"hdex":"#FF0","hex":"#0F0"}}
+Subject 2:{"code":{"hex":"#FF0","hex":"#0F0"}}
+"code": {"hdex":"#FF0","hex":"#0F0"}
+"code": {"hex":"#FF0","hex":"#0F0"}
+
+
+KeyVal has duplicates or different values
+"code": {"hdex":"#FF0","hex":"#0F0"}
+"code": {"hex":"#FF0","hex":"#0F0"}
+
+
+KeyVal has duplicates or different values
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+Subject 2:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 14:35:08 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 14:45:31 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+004052A0"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 14:50:27 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 14:53:07 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 14:55:20 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse for children:
+"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+
+The parse for KeyVal:
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 14:56:48 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse for children:
+"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+
+The parse for KeyVal:
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 15:10:34 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse for children:
+:"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+
+The parse for KeyVal:
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 15:10:59 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 15:12:41 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 15:13:51 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse for children:
+"code":"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+
+The parse for KeyVal:
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+
+======================================TEST 1 [size]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"]}
+
++TEST PASSED!! 5 KeyVal was found.
+ "category": "hue"
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 2 [size]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+"cod": {"hex" : ["57", "5", "7", "17"]}
+"code": {"heex":["565","55","70","517"]}
+"code":	"heex": ["565","55","70","517"]
+, "hex": ["57", "5", "7", "17"]
+
+
+======================================TEST 3 [size]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject:{"color": "yellow","cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->1 child was found
+"cod":	"hex": ["57", "5", "7", "17"]
+
+
+======================================TEST 4 [size]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject:{"code":{"color": "yellow","heex":["565","55","70","517"],"category" : "hue"}}
+
++TEST PASSED!! 1 child was found
+"code":	"category": "hue"
+"color": "yellow"
+"heex": ["565","55","70","517"]
+
+
+======================================TEST 1 [equality]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"color": "yellow","category" : "hue"}
+Subject 2:{"color": "yellow","category" : "hue"}
+
++TEST PASSED!! KeyVal are the same
+"category": "hue"
+"color": "yellow"
+"category": "hue"
+"color": "yellow"
+
+======================================TEST 2 [equality]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"code":{"one":"#FF0","two":"#0F0"}}
+Subject 2:{"code":{"one":"#FF0","twdo":"#0F0"}}
+
++TEST FAILED!! KeyVal are different
+"code": {"one":"#FF0","two":"#0F0"}
+"code": {"one":"#FF0","twdo":"#0F0"}
+
+======================================TEST 3 [equality]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+Subject 2:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+
++TEST PASSED!! KeyVal are the same
+"code": {"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}
+"code": {"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}
+
+======================================TEST 4 [equality]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+Subject 2:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+
++TEST PASSED!! KeyVal are the same
+:	"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+:	"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+======================================TEST 5 [equality]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+Subject 2:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+
++TEST PASSED!! KeyVal are the same
+"code":	"hed": ["57", "5", "4", "17"]
+"heex": ["565","55","70","517"]
+
+"code":	"hed": ["57", "5", "4", "17"]
+"heex": ["565","55","70","517"]
+
+======================================TEST 1 [parse_json]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject is:{"code":{"heex":["565","55","70","517"]},{"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+"code":	"heex": ["565","55","70","517"]
+"code": {"heex":["565","55","70","517"]}
+"hex": ["57", "5", "7", "17"]
+
+======================================TEST 2 [parse_json]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject is:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+
+ The parse:
+:	"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 15:36:34 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse for children:
+"code":	"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+
+The parse for KeyVal:
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 1 [merge]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"one" : ["55", "55", "70", "17"],"two" : ["55", "55", "70", "17"]}
+Subject 2:{"one" : ["55", "55", "70", "17"],"two1" : ["55", "55", "70", "17"]}
+"one": ["55", "55", "70", "17"]
+"two": ["55", "55", "70", "17"]
+"two1": ["55", "55", "70", "17"]
+
+
+KeyVal has duplicates or different values
+======================================TEST 2 [merge]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"color": "green"}
+Subject 2:{"color": "yellow"}
+"color": "green"
+"color": "yellow"
+
+
+KeyVal has duplicates or different values
+======================================TEST 3 [merge]==========================================
+Mon Jul 02 15:36:34 2018
+
+Subject 1:{"code":{"hdex":"#FF0","hex":"#0F0"}}
+Subject 2:{"code":{"hex":"#FF0","hex":"#0F0"}}
+"code": {"hdex":"#FF0","hex":"#0F0"}
+"code": {"hex":"#FF0","hex":"#0F0"}
+
+
+KeyVal has duplicates or different values
+"code": {"hdex":"#FF0","hex":"#0F0"}
+"code": {"hex":"#FF0","hex":"#0F0"}
+
+
+KeyVal has duplicates or different values
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+Subject 2:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+
+Children are the same
+
+======================================TEST 1 [size]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"]}
+
++TEST PASSED!! 5 KeyVal was found.
+ "category": "hue"
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 2 [size]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject:{"code":{"heex":["565","55","70","517"]},"cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->2 children was found
+"cod": {"hex" : ["57", "5", "7", "17"]}
+"code": {"heex":["565","55","70","517"]}
+"code":	"heex": ["565","55","70","517"]
+, "hex": ["57", "5", "7", "17"]
+
+
+======================================TEST 3 [size]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject:{"color": "yellow","cod":{"hex" : ["57", "5", "7", "17"]}}
+
++TEST PASSED!! 2 KeyVal->1 child was found
+"cod":	"hex": ["57", "5", "7", "17"]
+"cod": {"hex" : ["57", "5", "7", "17"]}
+"color": "yellow"
+
+
+======================================TEST 4 [size]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject:{"code":{"color": "yellow","heex":["565","55","70","517"],"category" : "hue"}}
+
++TEST PASSED!! 1 child was found
+"code":	"category": "hue"
+"color": "yellow"
+"heex": ["565","55","70","517"]
+
+
+======================================TEST 1 [equality]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"color": "yellow","category" : "hue"}
+Subject 2:{"color": "yellow","category" : "hue"}
+
++TEST PASSED!! KeyVal are the same
+"category": "hue"
+"color": "yellow"
+"category": "hue"
+"color": "yellow"
+
+======================================TEST 2 [equality]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"code":{"one":"#FF0","two":"#0F0"}}
+Subject 2:{"code":{"one":"#FF0","twdo":"#0F0"}}
+
++TEST FAILED!! KeyVal are different
+"code": {"one":"#FF0","two":"#0F0"}
+"code": {"one":"#FF0","twdo":"#0F0"}
+
+======================================TEST 3 [equality]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+Subject 2:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+
++TEST PASSED!! KeyVal are the same
+"code": {"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}
+"code": {"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}
+
+======================================TEST 4 [equality]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+Subject 2:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+
++TEST PASSED!! KeyVal are the same
+:	"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+:	"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+======================================TEST 5 [equality]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+Subject 2:{"code":{"heex":["565","55","70","517"],"hed":["57", "5", "4", "17"]}}
+
++TEST PASSED!! KeyVal are the same
+"code":	"hed": ["57", "5", "4", "17"]
+"heex": ["565","55","70","517"]
+
+"code":	"hed": ["57", "5", "4", "17"]
+"heex": ["565","55","70","517"]
+
+======================================TEST 1 [parse_json]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject is:{"code":{"heex":["565","55","70","517"]},{"hex":["57", "5", "7", "17"]}}
+
+ The parse:
+"code":	"heex": ["565","55","70","517"]
+"code": {"heex":["565","55","70","517"]}
+"hex": ["57", "5", "7", "17"]
+
+======================================TEST 2 [parse_json]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject is:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+
+ The parse:
+:	"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+======================================TEST 3 [parse_json]==========================================
+Mon Jul 02 15:40:48 2018
+
+The subject is:{"color": "yellow","category" : "hue","heex" : ["55", "55", "70", "17"],"type" : "primary","hex" : ["255", "255", "0", "1"], "code":{"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}}
+
+ The parse for children:
+"code":	"heex": ["565","55","70","517"]
+"hex": ["57", "5", "7", "17"]
+
+The parse for KeyVal:
+"category": "hue"
+"code": {"heex":["565","55","70","517"],"hex":["57", "5", "7", "17"]}
+"color": "yellow"
+"heex": ["55", "55", "70", "17"]
+"hex": ["255", "255", "0", "1"]
+"type": "primary"
+
+======================================TEST 1 [merge]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"one" : ["55", "55", "70", "17"],"two" : ["55", "55", "70", "17"]}
+Subject 2:{"one" : ["55", "55", "70", "17"],"two1" : ["55", "55", "70", "17"]}
+"one": ["55", "55", "70", "17"]
+"two": ["55", "55", "70", "17"]
+"two1": ["55", "55", "70", "17"]
+
+
+KeyVal has duplicates or different values
+======================================TEST 2 [merge]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"color": "green"}
+Subject 2:{"color": "yellow"}
+"color": "green"
+"color": "yellow"
+
+
+KeyVal has duplicates or different values
+======================================TEST 3 [merge]==========================================
+Mon Jul 02 15:40:48 2018
+
+Subject 1:{"code":{"hdex":"#FF0","hex":"#0F0"}}
+Subject 2:{"code":{"hex":"#FF0","hex":"#0F0"}}
+"code": {"hdex":"#FF0","hex":"#0F0"}
+"code": {"hex":"#FF0","hex":"#0F0"}
+
+
+KeyVal has duplicates or different values
+"code": {"hdex":"#FF0","hex":"#0F0"}
+"code": {"hex":"#FF0","hex":"#0F0"}
+
+
+KeyVal has duplicates or different values
+Subject 1:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+Subject 2:{
+  "colors": [
+    {
+      "color": "yellow",
+      "category": "hue",
+      "type": "primary",
+      "code": {
+        "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+      }
+    },
+    {
+      "color": "green",
+      "category": "hue",
+      "type": "secondary",
+      "code": {
+        "hex": "#0F0"
+      }
+    }
+  ]
+}
+"category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+, "category": "hue"
+"code": "rgba": ["0","1","2","6"],
+        "rgb": ["3","4","5","6"]
+"color": "yellow"
+"hex": "#0F0"
+"rgb": ["3","4","5","6"]
+"rgba": ["0","1","2","6"]
+"type": "primary"
+
+
+Children are the same
