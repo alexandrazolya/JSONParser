@@ -22,7 +22,7 @@ JSONNode* test::parseElements(const std::string & elements, std::string printOff
 		std::string restOfString;
 		std::regex whole_file("\\s*\\{([\\{A-Za-z0-9\":\\#\\n\\t\\s,\\{\\}\\[\\]]+)\\}\\s*");
 		std::sregex_iterator whole_file_it(subjElem.begin(), subjElem.end(), whole_file);
-		std::regex children("([a-z0-9\"]+)\\s*:\\s*\\s*(\\{[\\#A-Za-z0-9\"\\s*\n*\t*:\\[\\],]+?\\})\\s*,{0,1}");
+		std::regex children("([a-z0-9\"]+)\\s*:\\s*\\{\\s*([\\#A-Za-z0-9\"\\s*\n*\t*:\\[\\],]+?)\\s*\\},{0,1}");
 		std::sregex_iterator next_child(subjElem.begin(), subjElem.end(), children);
 		while (next_child != end)
 		{
@@ -88,7 +88,6 @@ JSONNode* test::parseElements(const std::string & elements, std::string printOff
 				subjElem = restOfString;
 				next_array = std::sregex_iterator(subjElem.begin(), subjElem.end(), array);
 			}
-			
 		}
 		if (restOfString != "")
 		{
@@ -136,7 +135,8 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 			/* key : [{subgroup from array}] checked*/
 			std::sregex_iterator next_subgrup_child_array(groupValue.begin(), groupValue.end(), subgrup_child_array);
 			for (; next_subgrup_child_array != end; ++next_subgrup_child_array)
-			{				
+			{
+				
 				//JSONNode *node = new JSONNode;
 				auto groupMatch = *next_subgrup_child_array;
 				std::cout << "\n" + printOffset << groupMatch[1].str() << std::endl;
@@ -155,7 +155,6 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 						child->key = match[1].str();
 						node->child.push_back(child);
 					}
-
 					node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
 					next_child++;
 					restOfString = match.prefix().str() + match.suffix().str();
@@ -338,8 +337,8 @@ void test::removeChildDuplicates(std::vector<JSONNode*> &C1, std::vector<JSONNod
 	else { std::cout << "Different sizes of children" << std::endl; }
 }
 
-void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
-{
+void test::mergeFiles(JSONNode *node1, JSONNode *node2)
+{////////////// LOADING
 	if (node1->child.size() == node2->child.size())
 	{
 		if (!(node1->child.empty()))
@@ -347,10 +346,7 @@ void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
 			if (node1->child == node2->child)
 			{
 				std::cout << node1->child << std::endl;
-				std::cout << "\nChildren are the same\n";
-				out_data << node1->child << std::endl;
-				out_data << "\nChildren are the same\n";
-
+				std::cout << "\Children are the same\n";
 			}
 			if (node1->keyVal.size() == node2->keyVal.size())
 			{
@@ -360,40 +356,24 @@ void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
 					{
 						std::cout << node1->keyVal << std::endl;
 						std::cout << "\nKeyVal are the same\n";
-						out_data << node1->keyVal << std::endl;
-						out_data << "\nKeyVal are the same\n";
 					}
 					else
 					{
 						removeKeyValDuplicates(node1->keyVal, node2->keyVal);
 						std::cout << node1->keyVal << node2->keyVal << std::endl;
 						std::cout << "\nKeyVal has duplicates or different values\n";
-						out_data << node1->keyVal << node2->keyVal << std::endl;
-						out_data << "\nKeyVal has duplicates or different values\n";
 					}
 				}
-				else 
-				{ 
-				std::cout << "\nEMPTY keyVal\n";
-				}
+				else { std::cout << "\nEMPTY keyVal\n"; }
 			}
 			else
 			{
 				removeChildDuplicates(node1->child, node2->child);
 				std::cout << node1->child << node2->child << std::endl;
 				std::cout << "\Children has duplicates or different values\n";
-				out_data << node1->child << node2->child << std::endl;
-				out_data << "\Children has duplicates or different values\n";
 			}
 		}
-		else 
-		{
-			std::cout << "\nEMPTY keyVal\n"; 
-		}
-	}
-	else
-	{
-		std::cout << "\nDiferent size of children\n";
+		else { std::cout << "\nEMPTY keyVal\n"; }
 	}
 	////////////////
 	if (node1->keyVal.size() == node2->keyVal.size())
@@ -403,27 +383,16 @@ void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
 			if (node1->keyVal == node2->keyVal)
 			{
 				std::cout << node1->keyVal << std::endl;
-				out_data << node1->keyVal << std::endl;
 				std::cout << "\nKeyVal are the same\n";
-				out_data << "\nKeyVal are the same\n";
 			}
 			else
 			{
 				removeKeyValDuplicates(node1->keyVal, node2->keyVal);
-				out_data << node1->keyVal << node2->keyVal << std::endl;
 				std::cout << node1->keyVal << node2->keyVal << std::endl;
 				std::cout << "\nKeyVal has duplicates or different values\n";
-				out_data << "\nKeyVal has duplicates or different values\n";
 			}
 		}
-		else 
-		{ 
-			std::cout << "\nEMPTY keyVal\n"; 
-		}
-	}
-	else
-	{
-		std::cout << "\nDifferent sizes of keyVal\n";
+		else { std::cout << "\nEMPTY keyVal\n"; }
 	}
 }
 
@@ -433,7 +402,7 @@ bool test::operator==(const std::map<std::string, std::string> &kV1, const std::
 {
 	if (kV1.size() == kV2.size())
 	{
-		//bool aux = false;
+		bool aux = false;
 		if (kV1.empty())
 		{
 			//std::cout << "\nEmpty keyVal";
@@ -508,7 +477,6 @@ bool test::operator==(const std::vector<JSONNode*> &ch1, const std::vector<JSONN
 				}
 				else{ return false; }
 			}
-			return true;
 		}
 	}
 	else{ return false; }
@@ -581,10 +549,12 @@ std::ostream& test::operator<<(std::ostream& os, const std::map<std::string, std
 
 std::ostream& test::operator<<(std::ostream& os, const std::vector<JSONNode*> &C)
 {
+	os << "[";
 	for (int i = 0; i < C.size(); ++i) {
-		os << C[i]->keyVal;
+		os << C[i];
 		if (i != C.size() - 1)
 			os << ", ";
 	}
+	os << "]\n";
 	return os;
 }

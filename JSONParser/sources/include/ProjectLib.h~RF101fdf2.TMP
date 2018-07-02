@@ -51,7 +51,7 @@ namespace test{
 
 	void removeChildDuplicates(std::vector<JSONNode*> &C1, std::vector<JSONNode*> &C2);
 
-	void mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2);
+	void mergeFiles(JSONNode *node1, JSONNode *node2);
 
 	template<typename Type>
 	void GetValue(const std::regex &primitive, const std::regex &array_, const std::regex &children, const std::regex &child_array)

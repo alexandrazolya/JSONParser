@@ -152,7 +152,7 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 					// see if child is empty
 					if (!(*child == *(new JSONNode)))
 					{
-						child->key = match[1].str();
+						parentNode->key = match[1].str();
 						node->child.push_back(child);
 					}
 
