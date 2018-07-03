@@ -254,7 +254,7 @@ TEST_CASE("Merge keyVal of []", "[merge]")
 	out_data << "Subject 2:" << sub2 << std::endl;
 	JSONNode *testnode = test::parseElements(sub1);
 	JSONNode *testnode2 = test::parseElements(sub2);
-	mergeFiles(out_data, testnode, testnode2);
+	mergeInFile(out_data, testnode, testnode2);
 	//--------DONE-------
 }
 
@@ -267,26 +267,26 @@ TEST_CASE("Merge keyVal of strings", "[merge]")
 	out_data << "Subject 2:" << sub2 << std::endl;
 	JSONNode *testnode = test::parseElements(sub1);
 	JSONNode *testnode2 = test::parseElements(sub2);
-	mergeFiles(out_data, testnode, testnode2);
+	mergeInFile(out_data, testnode, testnode2);
 	//--------DONE-------
 }
 
 TEST_CASE("Merge keyChildren", "[merge]")
 {
 	out_data << "======================================TEST 3 [merge]==========================================\n" << dt << std::endl;
-	std::string sub1("{\"code\":{\"hdex\":\"#FF0\",\"hex\":\"#0F0\"}}");
+	std::string sub1("{\"code\":{\"hex\":\"#FF0\",\"hex\":\"#0F0\"}}");
 	std::string sub2("{\"code\":{\"hex\":\"#FF0\",\"hex\":\"#0F0\"}}");
 	out_data << "Subject 1:" << sub1 << std::endl;
 	out_data << "Subject 2:" << sub2 << std::endl;
 	JSONNode *testnode = test::parseElements(sub1);
 	JSONNode *testnode2 = test::parseElements(sub2);
-	mergeFiles(out_data, testnode, testnode2);
+	mergeInFile(out_data, testnode, testnode2);
 	//--------DONE-------
 }
 
 TEST_CASE("Merge files", "[merge]")
 {
-	std::cout << "======================================TEST 4 [merge]==========================================\n" << dt << std::endl;
+	out_data << "======================================TEST 4 [merge]==========================================\n" << dt << std::endl;
 	std::string test1;
 	std::string test2;
 	test::openFiles(test1, test2);
@@ -294,6 +294,6 @@ TEST_CASE("Merge files", "[merge]")
 	out_data << "Subject 2:" << test2 << std::endl;
 	JSONNode *testnode1 = test::parseKeyListElements(test1);
 	JSONNode *testnode2 = test::parseKeyListElements(test2);
-	mergeFiles(out_data, testnode1, testnode2);
+	mergeInFile(out_data, testnode1, testnode2);
 	//-------LOADING------
 }

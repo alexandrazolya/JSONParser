@@ -37,7 +37,7 @@ namespace test{
 		const node_type type;		
 	
 	};
-//=======================================================================FUNCTIONS============================================================================
+//=======================================================================FUNCTIONS===============================================================================
 
 	JSONNode* parseElements(const std::string & elements, std::string printOffset = "");
 
@@ -51,7 +51,7 @@ namespace test{
 
 	void removeChildDuplicates(std::vector<JSONNode*> &C1, std::vector<JSONNode*> &C2);
 
-	void mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2);
+	void mergeFiles(JSONNode *node1, JSONNode *node2);
 
 	template<typename Type>
 	void GetValue(const std::regex &primitive, const std::regex &array_, const std::regex &children, const std::regex &child_array)
@@ -80,6 +80,13 @@ namespace test{
 			}
 		}
 	}
+//===============================================================FUNCTIONS THAT PRINT IN A FILE====================================================================
+	
+	JSONNode* parseElementsInFile(std::ofstream &out_data, const std::string & elements, std::string printOffset = "");
+
+	JSONNode* parseKeyListElementsInFile(std::ofstream &out_data, const std::string & s, std::string printOffset = "");
+
+	void mergeInFile(std::ofstream &out_data, JSONNode *node1, JSONNode *node2);
 
 //=======================================================================BOOL/OPERATORS============================================================================
 

@@ -338,7 +338,7 @@ void test::removeChildDuplicates(std::vector<JSONNode*> &C1, std::vector<JSONNod
 	else { std::cout << "Different sizes of children" << std::endl; }
 }
 
-void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
+void test::mergeFiles(JSONNode *node1, JSONNode *node2)
 {
 	if (node1->child.size() == node2->child.size())
 	{
@@ -346,6 +346,343 @@ void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
 		{
 			if (node1->child == node2->child)
 			{
+				std::cout << node1->child << std::endl;
+				std::cout << "\nChildren are the same\n";
+
+			}
+			if (node1->keyVal.size() == node2->keyVal.size())
+			{
+				if (!(node1->keyVal.empty()))
+				{
+					if (node1->keyVal == node2->keyVal)
+					{
+						std::cout << node1->keyVal << std::endl;
+						std::cout << "\nKeyVal are the same\n";
+					}
+					else
+					{
+						removeKeyValDuplicates(node1->keyVal, node2->keyVal);
+						std::cout << node1->keyVal << node2->keyVal << std::endl;
+						std::cout << "\nKeyVal has duplicates or different values\n";
+					}
+				}
+				else
+				{
+					std::cout << "\nEMPTY keyVal\n";
+				}
+			}
+			else
+			{
+				removeChildDuplicates(node1->child, node2->child);
+				std::cout << node1->child << node2->child << std::endl;
+				std::cout << "\nChildren has duplicates or different values\n";
+			}
+		}
+		else
+		{
+			std::cout << "\nEMPTY keyVal\n";
+		}
+	}
+	else
+	{
+		std::cout << "\nDiferent size of children\n";
+	}
+	////////////////
+	if (node1->keyVal.size() == node2->keyVal.size())
+	{
+		if (!(node1->keyVal.empty()))
+		{
+			if (node1->keyVal == node2->keyVal)
+			{
+				std::cout << node1->keyVal << std::endl;
+				std::cout << "\nKeyVal are the same\n";
+			}
+			else
+			{
+				removeKeyValDuplicates(node1->keyVal, node2->keyVal);
+				std::cout << node1->keyVal << node2->keyVal << std::endl;
+				std::cout << "\nKeyVal has duplicates or different values\n";
+			}
+		}
+		else
+		{
+			std::cout << "\nEMPTY keyVal\n";
+		}
+	}
+	else
+	{
+		std::cout << "\nDifferent sizes of keyVal\n";
+	}
+}
+
+//===============================================================FUNCTIONS THAT PRINT IN A FILE====================================================================
+
+//JSONNode* parseElementsInFile(std::ofstream &out_data, const std::string & elements, std::string printOffset)
+//{
+//	printOffset += "\t";
+//	out_data << "value:\t\t" << elements << std::endl;
+//	std::cout << "value:\t\t" << elements << std::endl;
+//	std::string subjElem = elements;
+//	try {
+//		JSONNode *node = new JSONNode;
+//		std::sregex_iterator end;
+//		std::string restOfString;
+//		std::regex whole_file("\\s*\\{([\\{A-Za-z0-9\":\\#\\n\\t\\s,\\{\\}\\[\\]]+)\\}\\s*");
+//		std::sregex_iterator whole_file_it(subjElem.begin(), subjElem.end(), whole_file);
+//		std::regex children("([a-z0-9\"]+)\\s*:\\s*\\s*(\\{[\\#A-Za-z0-9\"\\s*\n*\t*:\\[\\],]+?\\})\\s*,{0,1}");
+//		std::sregex_iterator next_child(subjElem.begin(), subjElem.end(), children);
+//		while (next_child != end)
+//		{
+//			auto match = *next_child;
+//			out_data << "\n" + printOffset << match[1].str() << std::endl;
+//			std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//			JSONNode* child = parseElements(match[2].str(), printOffset);
+//			// see if child is empty
+//			if (!(*child == *(new JSONNode)))
+//			{
+//				child->key = match[1].str();
+//				node->child.push_back(child);
+//			}
+//			node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+//			next_child++;
+//			restOfString = match.prefix().str() + match.suffix().str();
+//			std::sregex_iterator tmp = next_child;
+//			if (tmp == end)
+//			{
+//				subjElem = restOfString;
+//				next_child = std::sregex_iterator(subjElem.begin(), subjElem.end(), children);
+//			}
+//		}
+//		std::regex primitives("\\s*([a-zA-Z0-9\"]+)\\s*:\\s*([a-zA-Z0-9#\"]+),{0,1}\\s*");
+//		std::sregex_iterator next_primitive(subjElem.begin(), subjElem.end(), primitives);
+//		while (next_primitive != end) {
+//			auto match = *next_primitive;
+//			out_data << "\n" + printOffset << match[1].str() << std::endl;
+//			std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//			JSONNode* child = parseElements(match[2].str(), printOffset);
+//			// todo: see if child is empty - done
+//			if (!(*child == *(new JSONNode)))
+//			{
+//				child->key = match[1].str();
+//				node->child.push_back(child);
+//			}
+//			node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+//			restOfString = match.prefix().str() + match.suffix().str();
+//			next_primitive++;
+//			std::sregex_iterator tmp3 = next_primitive;
+//			if (tmp3 == end)
+//			{
+//				subjElem = restOfString;
+//				next_primitive = std::sregex_iterator(subjElem.begin(), subjElem.end(), primitives);
+//			}
+//		}
+//		std::regex array("([a-zA-Z0-9\"]+)\\s*:\\s*(\\[[a-zA-Z0-9\",\\s*]+\\]),{0,1}");
+//		std::sregex_iterator next_array(subjElem.begin(), subjElem.end(), array);
+//		while (next_array != end) {
+//			auto match = *next_array;
+//			out_data << "\n" + printOffset << match[1].str() << std::endl;
+//			std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//			JSONNode* child = parseElements(match[2].str(), printOffset);
+//			// see if child is empty
+//			if (!(*child == *(new JSONNode)))
+//			{
+//				child->key = match[1].str();
+//				node->child.push_back(child);
+//			}
+//			node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+//			restOfString = match.prefix().str() + match.suffix().str();
+//			next_array++;
+//			std::sregex_iterator tmp2 = next_array;
+//			if (tmp2 == end)
+//			{
+//				subjElem = restOfString;
+//				next_array = std::sregex_iterator(subjElem.begin(), subjElem.end(), array);
+//			}
+//
+//		}
+//		if (restOfString != "")
+//		{
+//			subjElem = restOfString;
+//			restOfString = "";
+//		}
+//		return node;
+//	}
+//	catch (std::regex_error& e) {
+//
+//		std::cout << e.what();
+//	}
+//	out_data << "\n\nEND\n\n" << std::endl;
+//	std::cout << "\n\nEND\n\n" << std::endl;
+//}
+//
+//JSONNode* parseKeyListElementsInFile(std::ofstream &out_data, const std::string & s, std::string printOffset)
+//{
+//	printOffset += "\t";
+//	out_data << "value:\t\t" << s << std::endl;
+//	std::cout << "value:\t\t" << s << std::endl;
+//	std::string subject = s;
+//	try
+//	{
+//		JSONNode *node = new JSONNode;
+//		JSONNode* parentNode = new JSONNode;
+//		std::sregex_iterator end;
+//		std::string restOfString;
+//		std::regex whole_file("\\s*\\{([\\{A-Za-z0-9\":\\#\\n\\t\\s,\\{\\}\\[\\]]+)\\}\\s*");
+//		/*	the whole file between the structure { }*/
+//		std::sregex_iterator whole_file_it(subject.begin(), subject.end(), whole_file);
+//		std::regex child_array("\\{\\s*([a-zA-Z0-9\"]+)\\s*:\\s*\\n*\\t*\\[\\s*([a-zA-Z\"\\[\\]#0-9\\s*:,\\{\\}]+)\\s*\\]\\s*\\}");
+//		/*delimits the key from an array with children between the []
+//		the content between [] is parsed then with the regex called subgroup (the next regex)*/
+//		std::sregex_iterator next_child_array(subject.begin(), subject.end(), child_array);
+//		while (next_child_array != end)
+//		{
+//			auto match = *next_child_array;
+//			out_data << "\n" + printOffset << match[1].str() << std::endl;
+//			std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//			//JSONNode* parentNode = parseKeyListElements(match[2].str(), printOffset);
+//			//if (!(*parentNode == *(new JSONNode)))
+//			//{
+//			//	parentNode->key = match[1].str();
+//			//	node->parentNode.insert(std::make_pair(match[1].str(), match[2].str()));
+//			//}
+//			std::string groupValue = match[2].str();
+//			std::regex subgrup_child_array("\\{\\s*([\\{A-Za-z0-9\":\\#\\n\\t\\s,\\[\\]\\{\\}]+?\\})\\s*\\}");
+//			/* key : [{subgroup from array}] checked*/
+//			std::sregex_iterator next_subgrup_child_array(groupValue.begin(), groupValue.end(), subgrup_child_array);
+//			for (; next_subgrup_child_array != end; ++next_subgrup_child_array)
+//			{
+//				//JSONNode *node = new JSONNode;
+//				auto groupMatch = *next_subgrup_child_array;
+//				out_data << "\n" + printOffset << groupMatch[1].str() << std::endl;
+//				std::cout << "\n" + printOffset << groupMatch[1].str() << std::endl;
+//				std::string subgrMatch = groupMatch[1].str();
+//				/////////////////
+//				std::regex children("([a-z0-9\"]+)\\s*:\\s*\\{\\s*([\\#A-Za-z0-9\"\\s*\n*\t*:\\[\\],]+?)\\s*\\},{0,1}");
+//				std::sregex_iterator next_child(subgrMatch.begin(), subgrMatch.end(), children);
+//				while (next_child != end)
+//				{
+//					auto match = *next_child;
+//					out_data << "\n" + printOffset << match[1].str() << std::endl;
+//					std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//					JSONNode* child = parseKeyListElements(match[2].str(), printOffset);
+//					// see if child is empty
+//					if (!(*child == *(new JSONNode)))
+//					{
+//						child->key = match[1].str();
+//						node->child.push_back(child);
+//					}
+//
+//					node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+//					next_child++;
+//					restOfString = match.prefix().str() + match.suffix().str();
+//					std::sregex_iterator tmp = next_child;
+//					if (tmp == end)
+//					{
+//						subject = restOfString;
+//						next_child = std::sregex_iterator(subject.begin(), subject.end(), children);
+//					}
+//				}
+//				///////////////////////
+//				std::regex primitives("\\s*([a-zA-Z0-9\"]+)\\s*:\\s*([a-zA-Z0-9#\"]+),{0,1}\\s*");
+//				/* checked with or without ,
+//				"color": "yellow" */
+//				std::sregex_iterator next_primitive(subgrMatch.begin(), subgrMatch.end(), primitives);
+//				while (next_primitive != end)
+//				{
+//					auto match = *next_primitive;
+//					out_data << "\n" + printOffset << match[1].str() << std::endl;
+//					std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//					JSONNode* child = parseKeyListElements(match[2].str(), printOffset);
+//					// todo: see if child is empty - done
+//					if (!(*child == *(new JSONNode)))
+//					{
+//						child->key = match[1].str();
+//						node->child.push_back(child);
+//					}
+//					node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+//					restOfString = match.prefix().str() + match.suffix().str();
+//					next_primitive++;
+//					std::sregex_iterator tmp3 = next_primitive;
+//					if (tmp3 == end)
+//					{
+//						subject = restOfString;
+//						next_primitive = std::sregex_iterator(subject.begin(), subject.end(), primitives);
+//					}
+//
+//				}
+//				///////////////////////
+//				std::regex array("([a-zA-Z0-9\"]+)\\s*:\\s*(\\[[a-zA-Z0-9\",\\s*]+\\]),{0,1}");
+//				/* key : array -checked with or without ,
+//				"hex" : ["5", "5", "7", "1"] */
+//				std::sregex_iterator next_array(subgrMatch.begin(), subgrMatch.end(), array);
+//				while (next_array != end)
+//				{
+//					auto match = *next_array;
+//					out_data << "\n" + printOffset << match[1].str() << std::endl;
+//					std::cout << "\n" + printOffset << match[1].str() << std::endl;
+//					JSONNode* child = parseKeyListElements(match[2].str(), printOffset);
+//					// see if child is empty
+//					if (!(*child == *(new JSONNode)))
+//					{
+//						child->key = match[1].str();
+//						node->child.push_back(child);
+//					}
+//					node->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+//					restOfString = match.prefix().str() + match.suffix().str();
+//					next_array++;
+//					std::sregex_iterator tmp2 = next_array;
+//					if (tmp2 == end)
+//					{
+//						subject = restOfString;
+//						next_array = std::sregex_iterator(subject.begin(), subject.end(), array);
+//					}
+//				}
+//				if (!(*node == *(new JSONNode)))
+//				{
+//					parentNode->child.push_back(node);
+//				}
+//				else
+//				{
+//					delete node;
+//				}
+//			}
+//			next_child_array++;
+//			restOfString = match.prefix().str() + match.suffix().str();
+//			std::sregex_iterator tmp1 = next_child_array;
+//			if (tmp1 == end)
+//			{
+//				subject = restOfString;
+//				next_child_array = std::sregex_iterator(subject.begin(), subject.end(), child_array);
+//			}
+//		}
+//
+//		if (restOfString != "")
+//		{
+//			subject = restOfString;
+//			restOfString = "";
+//		}
+//
+//		return parentNode;
+//	}
+//	catch (std::regex_error& e) {
+//		out_data << e.what();
+//		std::cout << e.what();
+//	}
+//	out_data << "\n\nEND\n\n" << std::endl;
+//	std::cout << "\n\nEND\n\n" << std::endl;
+//	return nullptr;
+//}
+
+void test::mergeInFile(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
+{
+	if (node1->child.size() == node2->child.size())
+	{
+		if (!(node1->child.empty()))
+		{
+			if (node1->child == node2->child)
+			{
+				removeKeyValDuplicates(node1->keyVal, node2->keyVal);
+				removeChildDuplicates(node1->child, node2->child);
 				std::cout << node1->child << std::endl;
 				std::cout << "\nChildren are the same\n";
 				out_data << node1->child << std::endl;
@@ -358,6 +695,7 @@ void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
 				{
 					if (node1->keyVal == node2->keyVal)
 					{
+						removeKeyValDuplicates(node1->keyVal, node2->keyVal);
 						std::cout << node1->keyVal << std::endl;
 						std::cout << "\nKeyVal are the same\n";
 						out_data << node1->keyVal << std::endl;
@@ -381,9 +719,9 @@ void test::mergeFiles(std::ofstream &out_data, JSONNode *node1, JSONNode *node2)
 			{
 				removeChildDuplicates(node1->child, node2->child);
 				std::cout << node1->child << node2->child << std::endl;
-				std::cout << "\Children has duplicates or different values\n";
+				std::cout << "\nChildren has duplicates or different values\n";
 				out_data << node1->child << node2->child << std::endl;
-				out_data << "\Children has duplicates or different values\n";
+				out_data << "\nChildren has duplicates or different values\n";
 			}
 		}
 		else 
