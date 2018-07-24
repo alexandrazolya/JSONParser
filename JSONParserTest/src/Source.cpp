@@ -11,16 +11,17 @@ YOU HAVE TO RESPECT THE ORDER OF THE ELEMENTS FOR parseElements
 2. KEY-VAL
 3. KEY-ARRAY
 
-THE NAME OF THE KEY'S MUST BE DIFFERENT BECAUSE THE PROGRAM TAKE ALL THE KEY'S BEING ONE ELEMENT FOR A ------CHILD----
+The program organizes the stings in alphabetical order.
 */
 using namespace test;
 std::ofstream out_data("MyOut.json", std::ios::app);
 //all the std::cout were replaced with out_data
 time_t now = time(0);
-// convert now to string form
 char* dt = ctime(&now);
 
 // ========================================================TEST SIZE===========================================================================================================================
+
+
 TEST_CASE("Read key val primitives, check size", "[size]"){	
 	out_data << "\n======================================TEST 1 [size]==========================================\n" << dt << std::endl;
 	std::string subject_keyVal("{\"color\": \"yellow\",\"category\" : \"hue\",\"heex\" : [\"55\", \"55\", \"70\", \"17\"],\"type\" : \"primary\",\"hex\" : [\"255\", \"255\", \"0\", \"1\"]}");
@@ -105,7 +106,9 @@ TEST_CASE("Read the primitives from a child, check size","[size]"){
 	//-----DONE----------
 }
 
+
 // ========================================================TEST EQUALITY=====================================================================================================================
+
 
 TEST_CASE("Check equality between two primitives", "[equality]"){
 	out_data << "======================================TEST 1 [equality]==========================================\n" << dt << std::endl;
@@ -209,7 +212,9 @@ TEST_CASE("Reading two children and compare the content", "[equality]"){
 	//--------DONE--------
 }
 
+
 // ========================================================TEST PARSE========================================================================================================================
+
 
 TEST_CASE("Read key with children of primitives, check the parse", "[parse_json]"){
 	out_data << "======================================TEST 1 [parse_json]==========================================\n" << dt << std::endl;
@@ -243,7 +248,9 @@ TEST_CASE("Parsing key array[children]", "[parse_json]")
 	//--------DONE-------
 }
 
+
 // ========================================================TEST MERGE========================================================================================================================
+
 
 TEST_CASE("Merge keyVal of []", "[merge]")
 {
@@ -280,7 +287,7 @@ TEST_CASE("Merge keyChildren", "[merge]")
 	out_data << "Subject 2:" << sub2 << std::endl;
 	JSONNode *testnode = test::parseElements(sub1);
 	JSONNode *testnode2 = test::parseElements(sub2);
-	mergeInFile(out_data, testnode, testnode2);
+	//mergeInFile(out_data, testnode, testnode2);
 	//--------DONE-------
 }
 
@@ -295,5 +302,83 @@ TEST_CASE("Merge files", "[merge]")
 	JSONNode *testnode1 = test::parseKeyListElements(test1);
 	JSONNode *testnode2 = test::parseKeyListElements(test2);
 	mergeInFile(out_data, testnode1, testnode2);
-	//-------LOADING------
+	//-------DONE------
+}
+
+TEST_CASE("Merge keyVal of strings with option", "[merge]")
+{
+	out_data << "======================================TEST 5 [merge]==========================================\n" << dt << std::endl;
+	std::string sub1("{\"color\": \"green\"}");
+	std::string sub2("{\"color\": \"yellow\"}");
+	out_data << "Subject 1:" << sub1 << std::endl;
+	out_data << "Subject 2:" << sub2 << std::endl;
+	JSONNode *testnode = test::parseElements(sub1);
+	JSONNode *testnode2 = test::parseElements(sub2);
+	//mergeOptionFunction(testnode, testnode2, KEEP_BOTH_ELEMENTS);
+	mergeElements(testnode, testnode2);
+	//--------DONE-------this test does not print the result in a file!
+}
+
+
+// ========================================================TEST INDEX======================================================================================================
+
+
+TEST_CASE("Index elements", "[index]")
+{
+	out_data << "======================================TEST 1 [index]==========================================\n" << dt << std::endl;
+	std::string sub("{\"color\": \"green\",\"color\": \"yellow\"}");
+	out_data << "Subject 1:" << sub << std::endl;
+	JSONNode *testnode = test::parseElements(sub);
+	out_data << "\n Indexed elements: \n" << std::endl;
+	indexElementsInFile(out_data,testnode);
+	//--------DONE-------
+}
+
+TEST_CASE("Index and merge elements", "[index]")
+{
+	out_data << "======================================TEST 2 [index]==========================================\n" << dt << std::endl;
+	std::string sub("{\"color\": \"green\",\"color\": \"yellow\"}");
+	std::string sub1("{\"color\": \"green\",\"type\": \"primary\",\"color\": \"blue\"}");
+	out_data << "Subject 1:" << sub << std::endl;
+	out_data << "Subject 2:" << sub1 << std::endl;
+	JSONNode *testnode = test::parseElements(sub);
+	JSONNode *testnode1 = test::parseElements(sub1);
+	JSONNode *testindex= test::indexElements(testnode);
+	JSONNode *testindex1 = test::indexElements(testnode1);
+	//--------DONE-------
+}
+
+
+// ========================================================TEST ORGANIZE======================================================================================================
+
+
+TEST_CASE("Structure keyVal", "[structu7re]")
+{
+	out_data << "======================================TEST 1 [structure]==========================================\n" << dt << std::endl;
+	std::string sub("{\"color\": \"green\",\"type\": \"primary\",\"hex\": \"fff\",\"color\": \"yellow\"}");
+	out_data << "Subject 1:" << sub << std::endl;
+	JSONNode *test = test::structureElementsInFile(out_data,sub);
+	//JSONNode *test = test::structureElements(sub);
+	//--------DONE-------
+}
+TEST_CASE("Structure child", "[struc5ture]")
+{
+	out_data << "======================================TEST 2 [structure]==========================================\n" << dt << std::endl;
+	std::string subject_keyChildren("{\"code\":{\"one\":\"#FF0\",\"two\":\"#0F0\"},\"code1\":{\"one1\":\"#FF0\",\"two1\":\"#0F0\"}}");
+	out_data << "Subject 1:" << subject_keyChildren << std::endl;
+	JSONNode *test = test::structureElementsInFile(out_data, subject_keyChildren);
+	//JSONNode *test = test::structureElements(sub);
+	//--------DONE-------
+}
+
+TEST_CASE("Structure a file after parsing in another file", "[structure]")
+{
+	out_data << "======================================TEST 3 [structure]==========================================\n" << dt << std::endl;
+	std::string test1;
+	std::string test2;
+	//the second file "test2" is not useful now, but is needed because of the parametres of the function "openFiles()"
+	//JSONNode *testnode1 = test::parseKeyListElements(test1);
+	test::openFiles(test1, test2);
+	out_data << "Subject 1:" << test1 << std::endl;
+	JSONNode *test = test::structureFilesinFile(out_data, test1);
 }

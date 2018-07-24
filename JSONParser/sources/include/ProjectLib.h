@@ -22,8 +22,8 @@ namespace test{
 	class JSONNode 
 	{
 		friend bool operator==(const JSONNode &node1, const JSONNode &node2);
+		friend std::string operator+(const std::string &s1, const std::string &s2);
 	public:
-
 		JSONNode(std::map <std::string, std::vector<JSONNode*>> keyChild);
 		JSONNode(const std::string &k, node_type t) : type(t){};
 		JSONNode() :type(node_type::PRIMITIVE){}
@@ -31,10 +31,12 @@ namespace test{
 		std::map<std::string, std::string> keyVal; // key : value
 		std::map <std::string, std::vector<JSONNode*>> parentNode;// key : [ value, value]
 		std::string key; // key
+		//std::string value; //value of the key
 		std::vector<JSONNode*> child; // [value, value]
 
 	private:
-		const node_type type;		
+		const node_type type;
+		//const mergeOption option;
 	
 	};
 //=======================================================================FUNCTIONS===============================================================================
@@ -42,6 +44,10 @@ namespace test{
 	JSONNode* parseElements(const std::string & elements, std::string printOffset = "");
 
 	JSONNode* parseKeyListElements(const std::string & s, std::string printOffset = "");
+
+	JSONNode* indexElements(JSONNode *node);
+
+	JSONNode* structureElements(const std::string & subject);
 
 	void deleteFunction(JSONNode *node);
 
@@ -51,7 +57,7 @@ namespace test{
 
 	void removeChildDuplicates(std::vector<JSONNode*> &C1, std::vector<JSONNode*> &C2);
 
-	void mergeFiles(JSONNode *node1, JSONNode *node2);
+	void mergeElements(JSONNode *node1, JSONNode *node2);
 
 	template<typename Type>
 	void GetValue(const std::regex &primitive, const std::regex &array_, const std::regex &children, const std::regex &child_array)
@@ -86,7 +92,13 @@ namespace test{
 
 	JSONNode* parseKeyListElementsInFile(std::ofstream &out_data, const std::string & s, std::string printOffset = "");
 
+	JSONNode* structureElementsInFile(std::ofstream &out_data, const std::string & subject);
+
+	JSONNode* structureFilesinFile(std::ofstream &out_data, const std::string & subject);
+
 	void mergeInFile(std::ofstream &out_data, JSONNode *node1, JSONNode *node2);
+
+	void indexElementsInFile(std::ofstream &out_data, JSONNode *node);
 
 //=======================================================================BOOL/OPERATORS============================================================================
 
@@ -105,5 +117,7 @@ namespace test{
 	std::ostream& operator<<(std::ostream& os, const std::map<std::string, std::vector<JSONNode*>> &kC);
 
 	std::ostream& operator<<(std::ostream& os, const std::vector<JSONNode*> &C);
+
+	//std::string operator +(const std::string &, const std::string &);
 
 }
