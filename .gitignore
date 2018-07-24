@@ -38,6 +38,9 @@ NOTES/*
 # visual studio files
 .vs/*
 
+*.tmp
+*.TMP
+
 # don't put catch in dependecies for now 
 dependecies/catch/*
 dependecies/*
