@@ -138,7 +138,7 @@ TEST_CASE("Check equality between two children of primitives", "[equality]"){
 	JSONNode *testnode2 = test::parseElements(subject_keyChildren2);
 	out_data << "Subject 1:" << subject_keyChildren1 << std::endl;
 	out_data << "Subject 2:" << subject_keyChildren2 << std::endl;
-	CHECK_FALSE(!(testnode1->keyVal == testnode2->keyVal));
+	CHECK_FALSE(testnode1->keyVal == testnode2->keyVal);
 	if (!(testnode1->keyVal == testnode2->keyVal))
 	{
 		out_data << "\n+TEST FAILED!! KeyVal are different\n" << testnode1->keyVal << testnode2->keyVal << std::endl;
@@ -371,14 +371,14 @@ TEST_CASE("Structure child", "[struc5ture]")
 	//--------DONE-------
 }
 
-TEST_CASE("Structure a file after parsing in another file", "[structure]")
+TEST_CASE("Structure a file after parsing in another file", "[structure1]")
 {
 	out_data << "======================================TEST 3 [structure]==========================================\n" << dt << std::endl;
 	std::string test1;
 	std::string test2;
-	//the second file "test2" is not useful now, but is needed because of the parametres of the function "openFiles()"
-	//JSONNode *testnode1 = test::parseKeyListElements(test1);
 	test::openFiles(test1, test2);
-	out_data << "Subject 1:" << test1 << std::endl;
-	JSONNode *test = test::structureFilesinFile(out_data, test1);
+	//the second file "test2" is not useful now, but is needed because of the parametres of the function "openFiles()"
+	JSONNode *testnode1 = test::parseKeyListElements(test1);
+	/* out_data << "Subject 1:" << test1 << std::endl;
+	JSONNode *test = test::structureFilesinFile(out_data, test1); */
 }
