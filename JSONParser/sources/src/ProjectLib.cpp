@@ -15,7 +15,7 @@ using namespace test;
 JSONNode* test::parseElements(const std::string & elements, std::string printOffset)
 {
 	printOffset += "\t";
-//	std::cout << "value to parse:\t\t" << elements << std::endl;
+	//	std::cout << "value to parse:\t\t" << elements << std::endl;
 	std::string subjElem = elements;
 	try {
 		JSONNode *subgrChildren = new JSONNode;
@@ -28,9 +28,8 @@ JSONNode* test::parseElements(const std::string & elements, std::string printOff
 		while (next_child != end)
 		{
 			auto match = *next_child;
-			std::cout << "\n" + printOffset << match[1].str() << " :"<< std::endl;
+			std::cout << "\n" + printOffset << match[1].str() << " :" << std::endl;
 			std::cout << "\n" + printOffset << match[2].str() << std::endl;
-			//node->key = match[1].str();
 			JSONNode* child = parseElements(match[2].str(), printOffset);
 			// see if child is empty
 			if (!(*child == *(new JSONNode)))
@@ -56,12 +55,6 @@ JSONNode* test::parseElements(const std::string & elements, std::string printOff
 			std::cout << "\n\t\t" << match[2].str() << std::endl;
 			JSONNode* keyVal = parseElements(match[2].str(), printOffset);
 			std::string val;
-			// todo: see if child is empty - done
-			/*if (!(*child == *(new JSONNode)))
-			{
-				child->key = match[1].str();
-				subgrChildren->child.push_back(child);
-			}*/
 			if (subgrChildren->keyVal.count(match[1].str()) > 0)
 			{
 				auto found = subgrChildren->keyVal.find(match[1].str());
@@ -87,14 +80,7 @@ JSONNode* test::parseElements(const std::string & elements, std::string printOff
 			auto match = *next_array;
 			std::cout << "\n" + printOffset << match[1].str() << " :" << std::endl;
 			std::cout << "\n\t\t" << match[2].str() << std::endl;
-			//subgrChildren->key = match[1].str();
 			JSONNode* keyVect = parseElements(match[2].str(), printOffset);
-			// see if child is empty
-		/*	if (!(*child == *(new JSONNode)))
-			{
-				child->key = match[1].str();
-				subgrChildren->child.push_back(child);
-			}*/
 			std::string val;
 			if (subgrChildren->keyVect.count(match[1].str()) > 0)
 			{
@@ -202,18 +188,12 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 				std::regex primitives("\\s*([a-zA-Z0-9\"]+)\\s*:\\s*([a-zA-Z0-9#\"]+),{0,1}\\s*");
 				/* checked with or without ,
 				"color": "yellow" */
-				std::sregex_iterator next_primitive(subgrMatch.begin(), subgrMatch.end(), primitives);
+				std::sregex_iterator next_primitive(subject.begin(), subject.end(), primitives);
 				while (next_primitive != end)
 				{
 					auto match = *next_primitive;
-//					std::cout << "\n" + printOffset << match[1].str() << std::endl;
-					JSONNode* keyVal = parseElements(match[0].str(), printOffset);
-					// todo: see if child is empty - done
-					//if (!(*keyVal == *(new JSONNode)))
-					//{
-					//	//child->key = match[1].str();
-					//	subgrChildren->child.push_back(child);
-					//}
+					JSONNode* keyVal = parseElements(match[2].str(), printOffset);
+
 					std::string val;
 					if (subgrChildren->keyVal.count(match[1].str()) > 0)
 					{
@@ -225,7 +205,9 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 						}
 					}
 					subgrChildren->keyVal.insert(std::make_pair(match[1].str(), match[2].str()));
+					//////////
 					restOfString = match.prefix().str() + match.suffix().str();
+					//////////
 					next_primitive++;
 					std::sregex_iterator tmp3 = next_primitive;
 					if (tmp3 == end)
@@ -243,8 +225,8 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 				while (next_array != end)
 				{
 					auto match = *next_array;
-				//	std::cout << "\n" + printOffset << match[1].str() << std::endl;
-					JSONNode* keyVect = parseElements(match[0].str(), printOffset);
+					//	std::cout << "\n" + printOffset << match[1].str() << std::endl;
+					JSONNode* keyVect = parseElements(match[2].str(), printOffset);
 					// see if child is empty
 					//if (!(*child == *(new JSONNode)))
 					//{
@@ -947,6 +929,8 @@ JSONNode* test::structureFilesinFile(std::ofstream &out_data, const std::string 
 	JSONNode *parsedNode = parseKeyListElements(subject);
 	std::map<std::string, std::string>::iterator itForKeyVal;
 	std::map<std::string, std::string>::iterator itForKeyVal1;
+	std::map<std::string, std::string>::iterator itForKeyVect;
+	std::map<std::string, std::string>::iterator itForKeyVect1;
 	std::vector<JSONNode*>::iterator itForChild;
 	out_data << "\t{";
 	std::cout << "\t{";
@@ -969,61 +953,100 @@ JSONNode* test::structureFilesinFile(std::ofstream &out_data, const std::string 
 		}
 	}
 	//----------organize the children structure to have a valide JSON format
-	if (parsedNode->child.size() > 0)
+	if (parsedNode->subgrChildrenVect.size() > 0)
 	{
 		int i = 0;
-		while (i < parsedNode->child.size() - 1)
+		while (i < parsedNode->subgrChildrenVect.size() - 1)
 		{
-			if (parsedNode->child[i]->keyVal.size() > 0)
+			out_data << "\n\t" << parsedNode->key << ":" << "\n\t\t[{";
+			std::cout << "\n\t" << parsedNode->key << ":" << "\n\t\t[{";
+			if (parsedNode->subgrChildrenVect[i]->keyVal.size() > 0)
 			{
-				out_data << "\n\t" << parsedNode->key << ":" << "\n\t\t{";
-				std::cout << "\n\t" << parsedNode->key << ":" << "\n\t\t{";
-				for (itForKeyVal = parsedNode->child[i]->keyVal.begin(), itForKeyVal1 = parsedNode->child[i]->keyVal.begin(); itForKeyVal1++ != parsedNode->child[i]->keyVal.end(); itForKeyVal++)
+				for (itForKeyVal = parsedNode->subgrChildrenVect[i]->keyVal.begin(), itForKeyVal1 = parsedNode->subgrChildrenVect[i]->keyVal.begin(); itForKeyVal1++ != parsedNode->subgrChildrenVect[i]->keyVal.end(); itForKeyVal++)
 				{
-					if (itForKeyVal1 != parsedNode->child[i]->keyVal.end())
+					if (itForKeyVal1 != parsedNode->subgrChildrenVect[i]->keyVal.end())
 					{
 						out_data << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
 						std::cout << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
 					}
 					else
 					{
-						out_data << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << std::endl;
-						std::cout << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << std::endl;
+						out_data << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
+						std::cout << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
 						break;
 					}
 				}
-				out_data << "\t\t}," << std::endl;
-				std::cout << "\t\t}," << std::endl;
 			}
-			else
+
+			if (parsedNode->subgrChildrenVect[i]->child.size() > 0)
 			{
-				break;
+						out_data << "\n\t\t\t" << parsedNode->subgrChildrenVect[i]->child[i]->key << ":" << "\n\t\t\t{";
+						std::cout << "\n\t\t\t" << parsedNode->subgrChildrenVect[i]->child[i]->key << ":" << "\n\t\t\t{";
+
+						for (itForKeyVect = parsedNode->subgrChildrenVect[i]->child[i]->keyVect.begin(), itForKeyVect1 = parsedNode->subgrChildrenVect[i]->child[i]->keyVect.begin(); itForKeyVect1++ != parsedNode->subgrChildrenVect[i]->child[i]->keyVect.end(); itForKeyVect++)
+						{
+							if (itForKeyVect1 != parsedNode->subgrChildrenVect[i]->child[i]->keyVect.end())
+							{
+								out_data << "\n\t\t\t\t" << itForKeyVect->first << ": " << itForKeyVect->second << "\,";
+								std::cout << "\n\t\t\t\t" << itForKeyVect->first << ": " << itForKeyVect->second << "\,";
+							}
+							else
+							{
+								out_data << "\n\t\t\t\t" << itForKeyVect->first << ": " << itForKeyVect->second << std::endl;
+								std::cout << "\n\t\t\t\t" << itForKeyVect->first << ": " << itForKeyVect->second << std::endl;
+								break;
+							}
+						}
+						out_data << "\t\t\t}" << std::endl;
+						std::cout << "\t\t\t}" << std::endl;
+
+					out_data << "\t\t}," << std::endl;
+					std::cout << "\t\t}," << std::endl;
 			}
 			i++;
 		}
-		if (i = parsedNode->child.size() - 1)
+		if (i = parsedNode->subgrChildrenVect.size() - 1)
 		{
-			//out_data << "\n\t" << parsedNode->child[i]->key << ":" << "\n\t\t{";
-			//std::cout << "\n\t" << parsedNode->child[i]->key << ":" << "\n\t\t{";
-
-			out_data << "\n\t\t{" ;
+			out_data << "\n\t\t{";
 			std::cout << "\n\t\t{";
-			for (itForKeyVal = parsedNode->child[i]->keyVal.begin(), itForKeyVal1 = parsedNode->child[i]->keyVal.begin(); itForKeyVal1++ != parsedNode->child[i]->keyVal.end(); itForKeyVal++)
+			for (itForKeyVal = parsedNode->subgrChildrenVect[i]->keyVal.begin(), itForKeyVal1 = parsedNode->subgrChildrenVect[i]->keyVal.begin(); itForKeyVal1++ != parsedNode->subgrChildrenVect[i]->keyVal.end(); itForKeyVal++)
 			{
-				if (itForKeyVal1 != parsedNode->child[i]->keyVal.end())
+				if (itForKeyVal1 != parsedNode->subgrChildrenVect[i]->keyVal.end())
 				{
 					out_data << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
 					std::cout << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
 				}
 				else
 				{
-					out_data << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << std::endl;
-					std::cout << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << std::endl;
+					out_data << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
+					std::cout << "\n\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
 					break;
 				}
 			}
-			out_data << "\t\t}" << std::endl;
-			std::cout << "\t\t}" << std::endl;
+			if (parsedNode->subgrChildrenVect[i]->child[0]->keyVal.size() > 0)
+			{
+				out_data << "\n\t\t\t" << parsedNode->subgrChildrenVect[i]->child[0]->key << ":" << "\n\t\t\t{";
+				std::cout << "\n\t\t\t" << parsedNode->subgrChildrenVect[i]->child[0]->key << ":" << "\n\t\t\t{";
+				for (itForKeyVal = parsedNode->subgrChildrenVect[i]->child[0]->keyVal.begin(), itForKeyVal1 = parsedNode->subgrChildrenVect[i]->child[0]->keyVal.begin(); itForKeyVal1++ != parsedNode->subgrChildrenVect[i]->child[0]->keyVal.end(); itForKeyVal++)
+				{
+					if (itForKeyVal1 != parsedNode->subgrChildrenVect[i]->child[0]->keyVal.end())
+					{
+						out_data << "\n\t\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
+						std::cout << "\n\t\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << "\,";
+					}
+					else
+					{
+						out_data << "\n\t\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << std::endl;
+						std::cout << "\n\t\t\t\t" << itForKeyVal->first << ": " << itForKeyVal->second << std::endl;
+						break;
+					}
+				}
+				out_data << "\t\t\t}" << std::endl;
+				std::cout << "\t\t\t}" << std::endl;
+			}
+
+			out_data << "\t\t}]" << std::endl;
+			std::cout << "\t\t}]" << std::endl;
 		}
 	}
 	out_data << "\t" << "}" << std::endl;

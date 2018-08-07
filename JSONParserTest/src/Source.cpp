@@ -361,10 +361,10 @@ TEST_CASE("Structure keyVal", "[structu7re]")
 	//JSONNode *test = test::structureElements(sub);
 	//--------DONE-------
 }
-TEST_CASE("Structure child", "[struc5ture]")
+TEST_CASE("Structure child", "[structure]")
 {
 	out_data << "======================================TEST 2 [structure]==========================================\n" << dt << std::endl;
-	std::string subject_keyChildren("{\"code\":{\"one\":\"#FF0\",\"two\":\"#0F0\"},\"code1\":{\"one1\":\"#FF0\",\"two1\":\"#0F0\"}}");
+	std::string subject_keyChildren("{\"color\":\"yellow\",\"code\":{\"one\":\"#FF0\",\"two\":\"#0F0\"},\"code1\":{\"one1\":\"#FF0\",\"two1\":\"#0F0\"}}");
 	out_data << "Subject 1:" << subject_keyChildren << std::endl;
 	JSONNode *test = test::structureElementsInFile(out_data, subject_keyChildren);
 	//JSONNode *test = test::structureElements(sub);
@@ -378,7 +378,7 @@ TEST_CASE("Structure a file after parsing in another file", "[structure1]")
 	std::string test2;
 	test::openFiles(test1, test2);
 	//the second file "test2" is not useful now, but is needed because of the parametres of the function "openFiles()"
-	JSONNode *testnode1 = test::parseKeyListElements(test1);
-	/* out_data << "Subject 1:" << test1 << std::endl;
-	JSONNode *test = test::structureFilesinFile(out_data, test1); */
+	JSONNode *testnode1 = test::structureFilesinFile(out_data,test1);
+	std::string tsaest1;
+
 }
