@@ -1,9 +1,9 @@
 {
   "colors": [
     {
-      "color": "yellow",
+      "color": "red",
       "category": "hue",
-      "type": "primary",
+      "type": "secondary",
       "code": {
         "rgba": ["0","1","2","6"],
         "rgb": ["3","4","5","6"]

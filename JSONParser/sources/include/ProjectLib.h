@@ -28,20 +28,16 @@ namespace test{
 		JSONNode(const std::string &k, node_type t) : type(t){};
 		JSONNode() :type(node_type::PRIMITIVE){}
 		JSONNode(std::string name) :type(node_type::PRIMITIVE){}
-		std::map<std::string, std::string> keyVal; // key : value
+		std::map<std::string, std::string> keyVal; /* key : value*/
 		std::map<std::string, std::string> keyVect;
-	//	std::map <std::string, std::vector<JSONNode*>> keyVect;// key : [ value, value]
-	//	std::map<std::string, std::string>subgrChildren;
-		std::string key; // key
-		//std::string value; //value of the key
-		std::vector<JSONNode*> child; // [value, value]
+		std::string key; /* key*/
+		std::vector<JSONNode*> child; /* [value, value] */
 		std::vector<JSONNode*> subgrChildrenVect;
 	private:
 		const node_type type;
-		//const mergeOption option;
-
 	};
-	//=======================================================================FUNCTIONS===============================================================================
+
+	/*=======================================================================FUNCTIONS===============================================================================*/
 
 	JSONNode* parseElements(const std::string & elements, std::string printOffset = "");
 
@@ -88,7 +84,7 @@ namespace test{
 			}
 		}
 	}
-	//===============================================================FUNCTIONS THAT PRINT IN A FILE====================================================================
+	/*===============================================================FUNCTIONS THAT PRINT IN A FILE====================================================================*/
 
 	JSONNode* parseElementsInFile(std::ofstream &out_data, const std::string & elements, std::string printOffset = "");
 
@@ -102,7 +98,7 @@ namespace test{
 
 	void indexElementsInFile(std::ofstream &out_data, JSONNode *node);
 
-	//=======================================================================BOOL/OPERATORS============================================================================
+	/*=======================================================================BOOL/OPERATORS============================================================================*/
 
 	bool operator==(const std::map<std::string, std::string> &kV1, const std::map<std::string, std::string> &kV2);
 
@@ -119,7 +115,5 @@ namespace test{
 	std::ostream& operator<<(std::ostream& os, const std::map<std::string, std::vector<JSONNode*>> &kC);
 
 	std::ostream& operator<<(std::ostream& os, const std::vector<JSONNode*> &C);
-
-	//std::string operator +(const std::string &, const std::string &);
 
 }

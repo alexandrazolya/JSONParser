@@ -27,14 +27,15 @@ TEST_CASE("Read key val primitives, check size", "[size]"){
 	std::string subject_keyVal("{\"color\": \"yellow\",\"category\" : \"hue\",\"heex\" : [\"55\", \"55\", \"70\", \"17\"],\"type\" : \"primary\",\"hex\" : [\"255\", \"255\", \"0\", \"1\"]}");
 	out_data << "The subject:" << subject_keyVal << std::endl;
 	JSONNode *testnode = test::parseElements(subject_keyVal);
-	CHECK(testnode->keyVal.size() == 5);
-	if (testnode->keyVal.size() == 5)
+	CHECK(testnode->keyVal.size() == 3);
+	CHECK(testnode->keyVect.size() == 2);
+	if ((testnode->keyVal.size() == 3) && (testnode->keyVect.size() == 2))
 	{ 
-		out_data << "\n+TEST PASSED!! 5 KeyVal was found.\n " << testnode->keyVal << std::endl;
+		out_data << "\n+TEST PASSED!!3 KeyVal was found and 2 KeyVect.\n " << testnode->keyVal << testnode->keyVect << std::endl;
 	}
 	else
 	{	
-		out_data << "\n-TEST FAILED!! (5 KeyVal should be found).\n " << testnode->keyVal << std::endl;
+		out_data << "\n-TEST FAILED!! (3 KeyVal and 2 KeyVect should be found).\n " << testnode->keyVal << testnode->keyVect << std::endl;
 	}
 	//------DONE-------
 }
@@ -44,22 +45,22 @@ TEST_CASE("Read key with children of primitives, check size", "[size]"){
 	std::string subject_keyChildren("{\"code\":{\"heex\":[\"565\",\"55\",\"70\",\"517\"]},\"cod\":{\"hex\" : [\"57\", \"5\", \"7\", \"17\"]}}");
 	out_data << "The subject:" << subject_keyChildren << std::endl;
 	JSONNode *testnode = test::parseElements(subject_keyChildren);
-	CHECK(testnode->keyVal.size() == 2);
+	CHECK(testnode->keyVal.size() == 0);
 	CHECK(testnode->child.size() == 2);
-	if (testnode->keyVal.size() == 2)
+	if (testnode->keyVal.size() == 0)
 	{
 		if (testnode->child.size() == 2)
 		{
-			out_data << "\n+TEST PASSED!! 2 KeyVal->2 children was found\n" << testnode->keyVal << testnode->child[0]->key << ":\t" << testnode->child <<"\n"<< std::endl;
+			out_data << "\n+TEST PASSED!! 0 KeyVal->2 children was found\n" << testnode->keyVal << testnode->child[0]->key << ":\t" << testnode->child <<"\n"<< std::endl;
 		}
 		else
 		{ 
-			out_data << "\n-TEST FAILED!! 2 KeyVal was found (2 children should be found).\n " << testnode->keyVal << testnode->child[0]->key << ":\t" << testnode->child <<"\n"<< std::endl;
+			out_data << "\n-TEST FAILED!! 0 KeyVal was found (2 children should be found).\n " << testnode->keyVal << testnode->child[0]->key << ":\t" << testnode->child <<"\n"<< std::endl;
 		}
 	}
 	else
 	{
-		out_data << "\n-TEST FAILED!! (2 KeyVal->2 children should be found).\n " << testnode->keyVal << testnode->child[0]->key << ":\t" << testnode->child << "\n" << std::endl;
+		out_data << "\n-TEST FAILED!! (0 KeyVal->2 children should be found).\n " << testnode->keyVal << testnode->child[0]->key << ":\t" << testnode->child << "\n" << std::endl;
 	}
 	//------DONE------- 
 }
@@ -69,22 +70,22 @@ TEST_CASE("Read mix keyVal and keyChildren, check size", "[size]"){
 	std::string subject_mix_key_vc("{\"color\": \"yellow\",\"cod\":{\"hex\" : [\"57\", \"5\", \"7\", \"17\"]}}");
 	out_data << "The subject:" << subject_mix_key_vc << std::endl;
 	JSONNode *testnode = test::parseElements(subject_mix_key_vc);
-	CHECK(testnode->keyVal.size() == 2);
+	CHECK(testnode->keyVal.size() == 1);
 	CHECK(testnode->child.size() == 1);
-	if (testnode->keyVal.size() == 2)
+	if (testnode->keyVal.size() == 1)
 	{
 		if (testnode->child.size() == 1)
 		{
-			out_data << "\n+TEST PASSED!! 2 KeyVal->1 child was found\n" << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << "\n" << std::endl;
+			out_data << "\n+TEST PASSED!! 1 KeyVal->1 child was found\n" << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << "\n" << std::endl;
 		}
 		else
 		{
-			out_data << "\n-TEST FAILED!! 2 KeyVal was found (1 child should be found).\n " << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << "\n" << std::endl;
+			out_data << "\n-TEST FAILED!! 1 KeyVal was found (1 child should be found).\n " << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << "\n" << std::endl;
 		}
 	}
 	else
 	{ 
-		out_data << "\n-TEST FAILED!! (2 KeyVal->1 child should be found).\n " << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << "\n" << std::endl;
+		out_data << "\n-TEST FAILED!! (1 KeyVal->1 child should be found).\n " << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << "\n" << std::endl;
 	}
 	//------DONE-------
 }
@@ -133,19 +134,19 @@ TEST_CASE("Check equality between two primitives", "[equality]"){
 TEST_CASE("Check equality between two children of primitives", "[equality]"){
 	out_data << "======================================TEST 2 [equality]==========================================\n"<< dt << std::endl;
 	std::string subject_keyChildren1("{\"code\":{\"one\":\"#FF0\",\"two\":\"#0F0\"}}");
-	std::string subject_keyChildren2("{\"code\":{\"one\":\"#FF0\",\"twdo\":\"#0F0\"}}");
+	std::string subject_keyChildren2("{\"code\":{\"one\":\"#FF0\",\"five\":\"#0F0\"}}");
 	JSONNode *testnode1 = test::parseElements(subject_keyChildren1);
 	JSONNode *testnode2 = test::parseElements(subject_keyChildren2);
 	out_data << "Subject 1:" << subject_keyChildren1 << std::endl;
 	out_data << "Subject 2:" << subject_keyChildren2 << std::endl;
-	CHECK_FALSE(testnode1->keyVal == testnode2->keyVal);
-	if (!(testnode1->keyVal == testnode2->keyVal))
+	CHECK_FALSE(testnode1->child == testnode2->child);
+	if (!(testnode1->child == testnode2->child))
 	{
-		out_data << "\n+TEST FAILED!! KeyVal are different\n" << testnode1->keyVal << testnode2->keyVal << std::endl;
+		out_data << "\n+TEST FAILED!! The children are different\n" << testnode1->child << testnode2->child << std::endl;
 	}
 	else
 	{
-		out_data << "\n+TEST PASSED!! KeyVal are the same\n" << testnode1->keyVal << testnode2->keyVal << std::endl;
+		out_data << "\n+TEST PASSED!! The children are the same\n" << testnode1->child << testnode2->child << std::endl;
 	}
 	//-------DONE-------- 	
 }
@@ -158,7 +159,7 @@ TEST_CASE("Check equality between two children of arrays", "[equality]"){
 	out_data << "Subject 2:" << subject_keyChildren2 << std::endl;
 	JSONNode *testnode1 = test::parseElements(subject_keyChildren1);
 	JSONNode *testnode2 = test::parseElements(subject_keyChildren2);
-	CHECK_FALSE(!(testnode1->keyVal == testnode2->keyVal));
+	CHECK_FALSE(!(testnode1->child == testnode2->child));
 	if (!(testnode1->keyVal == testnode2->keyVal))
 	{
 		out_data << "\n+TEST FAILED!! KeyVal are different\n" << testnode1->keyVal << testnode2->keyVal << std::endl;
@@ -179,15 +180,15 @@ TEST_CASE("Reading two files and compare the content, KEY CHILD", "[equality]"){
 	JSONNode *testnode2 = test::parseKeyListElements(test2);
 	out_data << "Subject 1:" << test1 << std::endl;
 	out_data << "Subject 2:" << test2 << std::endl;
-	CHECK_FALSE(!(testnode1->child == testnode2->child));
-	if (!(testnode1->child == testnode2->child))
+	CHECK_FALSE(testnode1->subgrChildrenVect == testnode2->subgrChildrenVect);
+	/*if (!(testnode1->child == testnode2->child))
 	{
 		out_data << "\n+TEST FAILED!! KeyVal are different\n" << testnode1->child[0]->key << ":\t" << testnode1->child << "\n" << testnode2->child[0]->key << ":\t" << testnode2->child << std::endl;
 	}
 	else
 	{
 		out_data << "\n+TEST PASSED!! KeyVal are the same\n" << testnode1->child[0]->key << ":\t" << testnode1->child << "\n" << testnode2->child[0]->key << ":\t" << testnode2->child << std::endl;
-	}
+	}*/
 	//--------DONE------- BUT THE FILES MUST BE THE SAME
 }
 
@@ -200,7 +201,7 @@ TEST_CASE("Reading two children and compare the content", "[equality]"){
 	JSONNode *testnode1 = test::parseElements(subject_keyChildren1);
 	JSONNode *testnode2 = test::parseElements(subject_keyChildren2);
 	CHECK_FALSE(!(testnode1->child == testnode2->child));
-	CHECK_FALSE(!(testnode1->child == testnode2->child));
+	//CHECK_FALSE(!(testnode1->child == testnode2->child));
 	if (!(testnode1->child == testnode2->child))
 	{
 		out_data << "\n+TEST FAILED!! KeyVal are different\n" << testnode1->child[0]->key << ":\t" << testnode1->child << "\n" << testnode2->child[0]->key << ":\t" << testnode2->child << std::endl;
@@ -215,36 +216,27 @@ TEST_CASE("Reading two children and compare the content", "[equality]"){
 
 // ========================================================TEST PARSE========================================================================================================================
 
-
-TEST_CASE("Read key with children of primitives, check the parse", "[parse_json]"){
-	out_data << "======================================TEST 1 [parse_json]==========================================\n" << dt << std::endl;
-	std::string subject_keyChildren("{\"code\":{\"heex\":[\"565\",\"55\",\"70\",\"517\"]},{\"hex\":[\"57\", \"5\", \"7\", \"17\"]}}");
-	out_data << "The subject is:" << subject_keyChildren << std::endl;
-	JSONNode *testnode = test::parseElements(subject_keyChildren);
-	out_data << "\n The parse:\n" << testnode->child[0]->key << ":\t" << testnode->child << testnode->keyVal << std::endl;
-	//--------DONE-------
-}
-
 TEST_CASE("Parsing just one file, taking all elements, including comma", "[parse_json]")
 {
-	out_data << "======================================TEST 2 [parse_json]==========================================\n" << dt << std::endl;
+	out_data << "======================================TEST 1 [parse_json]==========================================\n" << dt << std::endl;
 	std::string test1;
 	std::string test2;
 	test::openFiles(test1, test2);
 	out_data << "The subject is:" << test1 << std::endl;
-	JSONNode *testnode1 = test::parseKeyListElements(test1);
-	out_data << "\n The parse:\n" << testnode1->child[0]->key << ":\t" << testnode1->child << testnode1->keyVal << std::endl;
+	JSONNode *testnode1 = test::parseKeyListElementsInFile(out_data, test1);
+	CHECK(testnode1->subgrChildrenVect.size() == 2);
 	testnode1;
 	//--------DONE-------
 }
 
 TEST_CASE("Parsing key array[children]", "[parse_json]")
 {
-	out_data << "======================================TEST 3 [parse_json]==========================================\n" << dt << std::endl;
+	out_data << "======================================TEST 2 [parse_json]==========================================\n" << dt << std::endl;
 	std::string subject_keyVal("{\"color\": \"yellow\",\"category\" : \"hue\",\"heex\" : [\"55\", \"55\", \"70\", \"17\"],\"type\" : \"primary\",\"hex\" : [\"255\", \"255\", \"0\", \"1\"], \"code\":{\"heex\":[\"565\",\"55\",\"70\",\"517\"],\"hex\":[\"57\", \"5\", \"7\", \"17\"]}}");
 	JSONNode *testnode = test::parseElements(subject_keyVal);
 	out_data << "The subject is:" << subject_keyVal << std::endl;
-	out_data << "\n The parse for children:\n" << testnode->child[0]->key << ":\t" << testnode->child << "\nThe parse for KeyVal:\n" << testnode->keyVal << std::endl;
+	CHECK(testnode->keyVect.size() == 2);
+	// out_data << "\n The parse for children:\n" << testnode->child[0]->key << ":\t" << testnode->child << "\nThe parse for KeyVal:\n" << testnode->keyVal << std::endl;
 	//--------DONE-------
 }
 
@@ -281,13 +273,13 @@ TEST_CASE("Merge keyVal of strings", "[merge]")
 TEST_CASE("Merge keyChildren", "[merge]")
 {
 	out_data << "======================================TEST 3 [merge]==========================================\n" << dt << std::endl;
-	std::string sub1("{\"code\":{\"hex\":\"#FF0\",\"hex\":\"#0F0\"}}");
-	std::string sub2("{\"code\":{\"hex\":\"#FF0\",\"hex\":\"#0F0\"}}");
+	std::string sub1("{\"code\":{\"hex\":\"#FF0\"}}");
+	std::string sub2("{\"code\":{\"hex\":\"#FF0\"}}");
 	out_data << "Subject 1:" << sub1 << std::endl;
 	out_data << "Subject 2:" << sub2 << std::endl;
 	JSONNode *testnode = test::parseElements(sub1);
 	JSONNode *testnode2 = test::parseElements(sub2);
-	//mergeInFile(out_data, testnode, testnode2);
+//	mergeInFile(out_data, testnode, testnode2);
 	//--------DONE-------
 }
 
@@ -352,7 +344,7 @@ TEST_CASE("Index and merge elements", "[index]")
 // ========================================================TEST ORGANIZE======================================================================================================
 
 
-TEST_CASE("Structure keyVal", "[structu7re]")
+TEST_CASE("Structure keyVal", "[structure]")
 {
 	out_data << "======================================TEST 1 [structure]==========================================\n" << dt << std::endl;
 	std::string sub("{\"color\": \"green\",\"type\": \"primary\",\"hex\": \"fff\",\"color\": \"yellow\"}");
@@ -361,6 +353,7 @@ TEST_CASE("Structure keyVal", "[structu7re]")
 	//JSONNode *test = test::structureElements(sub);
 	//--------DONE-------
 }
+
 TEST_CASE("Structure child", "[structure]")
 {
 	out_data << "======================================TEST 2 [structure]==========================================\n" << dt << std::endl;
@@ -371,7 +364,7 @@ TEST_CASE("Structure child", "[structure]")
 	//--------DONE-------
 }
 
-TEST_CASE("Structure a file after parsing in another file", "[structure1]")
+TEST_CASE("Structure a file after parsing in another file", "[structure]")
 {
 	out_data << "======================================TEST 3 [structure]==========================================\n" << dt << std::endl;
 	std::string test1;
@@ -380,5 +373,18 @@ TEST_CASE("Structure a file after parsing in another file", "[structure1]")
 	//the second file "test2" is not useful now, but is needed because of the parametres of the function "openFiles()"
 	JSONNode *testnode1 = test::structureFilesinFile(out_data,test1);
 	std::string tsaest1;
+	CHECK(testnode1->subgrChildrenVect.size() == 2);
+
+}
+
+TEST_CASE("Structure elements after parsing", "[structure]")
+{
+	out_data << "======================================TEST 4 [structure]==========================================\n" << dt << std::endl;
+	std::string subject_keyVal("{\"color\": \"yellow\",\"category\" : \"hue\",\"heex\" : [\"55\", \"55\", \"70\", \"17\"],\"type\" : \"primary\",\"hex\" : [\"255\", \"255\", \"0\", \"1\"], \"code\":{\"heex\":[\"565\",\"55\",\"70\",\"517\"],\"hex\":[\"57\", \"5\", \"7\", \"17\"]}}");
+	out_data << "Subject 1:" << subject_keyVal << std::endl;
+	JSONNode *test = test::structureElementsInFile(out_data,subject_keyVal);
+	//JSONNode *test = test::parseElementsInFile(out_data, subject_keyVal);
+	CHECK(test->child.size() == 1);
+	//--------DONE-------
 
 }
