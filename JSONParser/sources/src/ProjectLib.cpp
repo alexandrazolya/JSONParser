@@ -162,7 +162,7 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 			{
 				auto groupMatch = *next_subgrup_child_array;
 				std::cout << "\n" + printOffset << groupMatch[1].str() << std::endl;
-				JSONNode* subgrChildren = parseElements(match[1].str(), printOffset);
+				JSONNode* subgrChildren = parseElements(groupMatch[1].str(), printOffset);
 				std::string subgrMatch = groupMatch[1].str();
 
 				/*iterate throw children*/
@@ -222,7 +222,8 @@ JSONNode* test::parseKeyListElements(const std::string & s, std::string printOff
 
 				/*iterate throw array*/
 				std::regex array("([a-zA-Z0-9\"]+)\\s*:\\s*(\\[[a-zA-Z0-9\",\\s*]+\\]),{0,1}");	/* key : array -checked with or without ,"hex" : ["5", "5", "7", "1"] */
-				std::sregex_iterator next_array(subgrMatch.begin(), subgrMatch.end(), array);
+				std::sregex_iterator next_array(subject.begin(), subject.end(), array);
+		
 				while (next_array != end)
 				{
 					auto match = *next_array;
